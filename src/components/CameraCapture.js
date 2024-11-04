@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Camera, Download, RotateCcw, Save, Trash2, List, X } from 'lucide-react';
-
+import ImageResize from './ImageResize';
 const CameraCapture = (props) => {
   const [capturedImage, setCapturedImage] = useState(null);
   const [savedImages, setSavedImages] = useState([]);
@@ -8,6 +8,7 @@ const CameraCapture = (props) => {
   const videoRef = useRef(null);
   const streamRef = useRef(null);
   const [isStreamActive, setIsStreamActive] = useState(false);
+
 
   const currentDodId = props.dodid
   // Load saved images from localStorage on component mount
@@ -114,11 +115,12 @@ const CameraCapture = (props) => {
     
           {savedImages.map((img) => (
             <div key={img.id} className="relative">
-              <img
-                src={img.imgData}
-                style={{ height: '150px' }}
-                alt={`Captured on ${new Date(img.timestamp).toLocaleString()}`}
-              />
+                <ImageResize 
+              src={img.imgData} 
+              alt="Nature landscape"
+              maxHeight={600}
+              thumbnailHeight={180}
+            />
               <div>
                 <button
                   onClick={() => downloadPhoto(img.data, img.timestamp)}
