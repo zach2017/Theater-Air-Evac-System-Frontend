@@ -1,16 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Camera, Download, RotateCcw, Save, Trash2, List, X } from 'lucide-react';
-import { 
-  Button,
-  Box,
-  Card,
-  CardMedia,
-  CardActions,
-  IconButton,
-  Tooltip,
-  Zoom
-} from '@mui/material';
-import { ZoomIn, ZoomOut } from '@mui/icons-material';
+
 const CameraCapture = (props) => {
   const [capturedImage, setCapturedImage] = useState(null);
   const [savedImages, setSavedImages] = useState([]);
