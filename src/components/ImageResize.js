@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { 
-  Button,
-  Box,
   Card,
   CardMedia,
   CardActions,
