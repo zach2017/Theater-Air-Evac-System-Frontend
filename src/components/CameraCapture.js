@@ -97,18 +97,7 @@ const CameraCapture = (props) => {
     startCamera();
   };
 
-
-  const ImageResize = () => {
-    const [isLarge, setIsLarge] = useState(false);
-  
-    const toggleSize = () => {
-      setIsLarge(!isLarge);
-    };
-  }
-  
   if (showGallery) {
-
-    
     return (
       <div>
       {/* Thumbnail Grid */}
