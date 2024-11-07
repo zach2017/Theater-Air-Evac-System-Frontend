@@ -16,6 +16,8 @@ import VitalsForm from '../../forms/ae/VitalsForm'
 import BlankTCCC from '../../forms/blankTccc/BlankTCCC'
 import AddMedForm from '../../forms/tccc/AddMedForm'
 import NotesForm from '../../forms/ae/NotesForm'
+import { encryptData } from '../../security/crypto'
+
 
 function PatienIcon(props) {
     const theme = useTheme()
@@ -83,6 +85,8 @@ function PatientCard(props) {
             ...patient,
             [key]: value
         }
+        console.log("SDLLDLD DLD LD LD LD LD LDL")
+        console.log(encryptData(JSON.stringify(newPatient)))
         setPatients({
             ...patients,
             [dodid]: newPatient

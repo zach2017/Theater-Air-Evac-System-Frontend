@@ -15,15 +15,16 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "crypto-js": "^4.2.0",
     "dayjs": "^1.11.10",
+    "dotenv": "^16.4.5",
     "gh-pages": "^6.1.1",
-    "lucide-react": "^0.454.0",
     "plotly.js": "^2.32.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-plotly.js": "^2.6.0",
     "react-router-dom": "^6.21.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^3.0.1",
     "react-signature-canvas": "^1.0.6",
     "usehooks-ts": "^2.9.1",
     "web-vitals": "^2.1.4",
@@ -42,11 +43,13 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "REACT_APP_DEPLOYMENT=github npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "dockerdev-build": "docker build -t taes-web-dev --platform linux/amd64 --build-arg CI_REGISTRY=registry.bespin.cce.af.mil -f Dockerfile.dev .",
+    "dockerdev-run": "docker run -it --platform linux/amd64 -p 3000:3000 -v ./:/usr/src/app taes-web-dev"
   },
   "eslintConfig": {
     "extends": [

@@ -1,14 +1,21 @@
 import React, { useEffect, useState, useRef } from 'react';
 
+/*
+
+Utility to save to local dynamdb when online and encrypt check.
+
+*/
 const LocalStorageListener = () => {
-  const [storageValue, setStorageValue] = useState(localStorage.getItem('patients') || '');
+  const [storageValue, setStorageValue] = useState(localStorage.getItem('encryptedPatients') || '');
   const previousValueRef = useRef(storageValue);
 
   useEffect(() => {
     const handleStorageChange = (event) => {
+ 
       if (event.key === 'patients') {
         const oldValue = previousValueRef.current;
         const newValue = event.newValue;
+      
         console.log('LocalStorage changed:');
         if (oldValue !== newValue) {
           console.log('LocalStorage changed:');
@@ -17,6 +24,7 @@ const LocalStorageListener = () => {
           console.log('Difference:', getDifference(oldValue, newValue));
 
           previousValueRef.current = newValue;
+         
           setStorageValue(newValue);
         }
       }
@@ -24,11 +32,14 @@ const LocalStorageListener = () => {
 
     const observeLocalStorage = () => {
       const storedValue = localStorage.getItem('patients');
+     
       const oldValue = previousValueRef.current;
-
+     
       if (storedValue !== oldValue) {
         console.log('LocalStorage changed locally:');
         console.log('Old Value:', oldValue);
+     
+        console.log()
         console.log('New Value:', storedValue);
         console.log('Difference:', getDifference(oldValue, storedValue));
 
@@ -55,7 +66,7 @@ const LocalStorageListener = () => {
       window.removeEventListener('storage', handleStorageChange);
       clearInterval(interval);
     };
-  }, []);
+  });
 
   return (
     <div>
