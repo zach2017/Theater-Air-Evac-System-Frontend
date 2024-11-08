@@ -92,8 +92,8 @@ function Patients(props) {
 
     return (
         <>
-            {Object.keys(patients).map(id => <PatientCard key={patients[id].dodid} {...patients[id]} />)}
             <AddNewCard onClick={() => setOpen(true)} />
+            {Object.keys(patients).map(id => <PatientCard key={patients[id].dodid} {...patients[id]} />)}
             <NewPatientForm
                 open={open}
                 close={() => setOpen(false)}
