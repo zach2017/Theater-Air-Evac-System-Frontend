@@ -8,7 +8,7 @@ const CameraCapture = (props) => {
   const videoRef = useRef(null);
   const streamRef = useRef(null);
   const [isStreamActive, setIsStreamActive] = useState(false);
-
+  const IMAGE_STORAGE = 'savedImages-'
 
   const currentDodId = props.dodid
   // Load saved images from localStorage on component mount
@@ -71,7 +71,7 @@ const CameraCapture = (props) => {
         dodid: props.dodid
       };
 
-      const IMAGE_STORAGE = 'savedImages-'
+     
       const updatedImages = [...savedImages, newImage];
       setSavedImages(updatedImages);
       localStorage.setItem(IMAGE_STORAGE + props.dodid, JSON.stringify(updatedImages));
