@@ -71,9 +71,10 @@ const CameraCapture = (props) => {
         dodid: props.dodid
       };
 
+      const IMAGE_STORAGE = 'savedImages-'
       const updatedImages = [...savedImages, newImage];
       setSavedImages(updatedImages);
-      localStorage.setItem('savedImages-' + props.dodid, JSON.stringify(updatedImages));
+      localStorage.setItem(IMAGE_STORAGE + props.dodid, JSON.stringify(updatedImages));
 
       setCapturedImage(null);
       startCamera();
@@ -90,7 +91,7 @@ const CameraCapture = (props) => {
   const deleteFromStorage = (id) => {
     const updatedImages = savedImages.filter(img => img.id !== id);
     setSavedImages(updatedImages);
-    localStorage.setItem('savedImages' + props.dodid, JSON.stringify(updatedImages));
+    localStorage.setItem(IMAGE_STORAGE + props.dodid, JSON.stringify(updatedImages));
   };
 
   const retakePhoto = () => {
