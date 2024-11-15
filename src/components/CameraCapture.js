@@ -4,7 +4,7 @@ import ImageResize from './ImageResize';
 const CameraCapture = (props) => {
   const [capturedImage, setCapturedImage] = useState(null);
   const [savedImages, setSavedImages] = useState([]);
-  const [showGallery, setShowGallery] = useState(true);
+  const [showGallery, setShowGallery] = useState(false);
   const videoRef = useRef(null);
   const streamRef = useRef(null);
   const [isStreamActive, setIsStreamActive] = useState(false);
@@ -28,12 +28,13 @@ const CameraCapture = (props) => {
 
   const startCamera = async () => {
     try {
+      setIsStreamActive(true);
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: 'environment' }
       });
       videoRef.current.srcObject = stream;
       streamRef.current = stream;
-      setIsStreamActive(true);
+   
     } catch (err) {
       console.error("Error accessing camera:", err);
     }
