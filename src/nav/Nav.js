@@ -17,7 +17,7 @@ import SettingsDialog from '../components/SettingsDialog'
 import SyncDialog from '../components/SyncDialog';
 import SwitchButton from '../components/SwtichButton';
 
-function Nav({onModeChange}) {
+function Nav({onModeChange, logout}) {
 
     const [open, setOpen] = React.useState(false)
     const [settingsOpen, setSettingsOpen] = React.useState(false)
@@ -45,7 +45,7 @@ function Nav({onModeChange}) {
                     </Link>
                     <Box sx={{flexGrow: 1}} />
                     <Tooltip
-                        title="Print"
+                        title="Theme"
                     >
                         <IconButton
                         >
@@ -55,11 +55,9 @@ function Nav({onModeChange}) {
                     <Tooltip
                         title="Print"
                     >
-                        <IconButton
-                            disabled
-                        >
-                            <PrintIcon fontSize="large" />
-                        </IconButton>
+                       <IconButton
+                            onClick={() => logout()}
+                        >Logout</IconButton>
                     </Tooltip>
                     <Tooltip
                         title="Sync"
