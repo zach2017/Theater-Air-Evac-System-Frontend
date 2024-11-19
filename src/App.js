@@ -137,7 +137,6 @@ function App() {
           <StorageContextProvider>
             <ThemeProvider theme={currentTheme}>
               <CssBaseline />
-              <TopMenuBar />
               <Nav onModeChange={handleThemeMode} logout={handleLogout} />
               <Content />
             </ThemeProvider>
