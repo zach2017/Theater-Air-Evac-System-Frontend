@@ -24,7 +24,7 @@ function SideDrawer(props) {
         >
             <List>
                 <ListItem disablePadding>
-                    <Link to="/patients" style={{color: "inherit", textDecoration: "none", width: "100%"}}>
+                    <Link to="/" style={{color: "inherit", textDecoration: "none", width: "100%"}}>
                         <ListItemButton>
                             <ListItemIcon>
                                 <PeopleAltIcon />

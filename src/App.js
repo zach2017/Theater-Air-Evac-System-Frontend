@@ -1,5 +1,5 @@
 // React
-import React , {useEffect} from 'react'
+import React, { useState } from 'react'
 
 // router
 import { BrowserRouter, HashRouter } from "react-router-dom"
@@ -9,7 +9,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
-import LocalStorageListener from './components/LocalStorageListener'
 
 // custom
 import Nav from './nav/Nav'
@@ -33,35 +32,29 @@ function Router(props) {
   )
 }
 
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
+
 
 function App() {
 
-  useEffect(() => {
-    const handleBeforeUnload = (event) => {
-        event.preventDefault();
-        event.returnValue = ''; // Chrome requires returnValue to be set
-    };
+  const [themeMode, setThemeMode] = useState("dark");
+ 
+  const handleThemeMode = (value) => {
+    setThemeMode(value);
+  };
 
-    window.addEventListener('beforeunload', handleBeforeUnload);
-
-    return () => {
-        window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-}, []);
-
+  let currentTheme = createTheme({
+    palette: {
+      mode: themeMode,
+    },
+  });
+  
   return (
     <Router>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <StorageContextProvider>
-          <LocalStorageListener/>
-          <ThemeProvider theme={darkTheme}>
+          <ThemeProvider theme={currentTheme}>
             <CssBaseline />
-            <Nav />
+            <Nav onModeChange={handleThemeMode} />
             <Content />
           </ThemeProvider>
         </StorageContextProvider>

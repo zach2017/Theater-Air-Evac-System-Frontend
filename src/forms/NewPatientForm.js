@@ -3,12 +3,12 @@ import React from 'react'
 
 // MUI 
 import { Autocomplete, Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField } from '@mui/material'
-import { encryptData } from '../security/crypto'
 
 // custom
 import { DatePicker } from '@mui/x-date-pickers'
 import useStorage from '../api/useStorage'
 import useEncryptedStorage from '../api/useEncryptedStorage'
+
 
 const defaultPatient = {
     firstName: '',
@@ -37,10 +37,8 @@ function NewPatientForm(props) {
     }
 
     function submit() {
-        console.log("SDLLDLD DLD LD LD LD LD LDL")
-        console.log(encryptData(JSON.stringify(patient)))
-        setEncryptedPatients({...patientsEncrypted, [patient.dodid]: patient})
         setPatients({...patients, [patient.dodid]: patient})
+        setEncryptedPatients({...patientsEncrypted, [patient.dodid]: patient})
         setPatient(defaultPatient)
         close()
     }

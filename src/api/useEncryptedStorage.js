@@ -5,12 +5,9 @@ import CryptoJS from 'crypto-js';
 
  function useEncryptedStorage(key, defaultValue) {
 
-  
-
-
     const getDecryptedValue = () => {
         try {
-              const secretKey =`${process.env.TAES_KEY}`
+              const secretKey =+ 'x1' + `${process.env.TAES_KEY}` 
           const encryptedValue = localStorage.getItem(key);
           if (encryptedValue) {
             const bytes = CryptoJS.AES.decrypt(encryptedValue, secretKey);

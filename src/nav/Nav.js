@@ -15,8 +15,9 @@ import PrintIcon from '@mui/icons-material/Print';
 import { Link, useLocation } from 'react-router-dom'
 import SettingsDialog from '../components/SettingsDialog'
 import SyncDialog from '../components/SyncDialog';
+import SwitchButton from '../components/SwtichButton';
 
-function Nav(props) {
+function Nav({onModeChange}) {
 
     const [open, setOpen] = React.useState(false)
     const [settingsOpen, setSettingsOpen] = React.useState(false)
@@ -43,6 +44,14 @@ function Nav(props) {
                         </Typography>
                     </Link>
                     <Box sx={{flexGrow: 1}} />
+                    <Tooltip
+                        title="Print"
+                    >
+                        <IconButton
+                        >
+                           <SwitchButton onModeChange={onModeChange} />
+                        </IconButton>
+                    </Tooltip>
                     <Tooltip
                         title="Print"
                     >

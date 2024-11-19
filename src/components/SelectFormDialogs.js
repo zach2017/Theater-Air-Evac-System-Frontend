@@ -29,8 +29,7 @@ function SelectFormDialog(props) {
                             "Tactical Casualty Care Card",
                             "9 Line",
                             "AF Form 3899",
-                            "Image",
-                            "Camera"
+                            "Image"
                         ]}
                         onChange={(_, value) => {
                             setForm(value)

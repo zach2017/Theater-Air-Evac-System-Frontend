@@ -1,0 +1,4 @@
+include:
+  - project: "mdaas/active/cantina/config"
+    ref: ${CANTINA_CONFIG_REPO_REF}
+    file: "${MDAAS_PIPELINE_ID}/cantina.gitlab-ci.yml"

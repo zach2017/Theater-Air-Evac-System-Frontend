@@ -1,14 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Camera, Download, RotateCcw, Save, Trash2, List, X } from 'lucide-react';
-import ImageResize from './ImageResize';
+
+const IMAGE_STORE = 'Saved_Images_'
 const CameraCapture = (props) => {
   const [capturedImage, setCapturedImage] = useState(null);
   const [savedImages, setSavedImages] = useState([]);
-  const [showGallery, setShowGallery] = useState(false);
+  const [showGallery, setShowGallery] = useState(true);
   const videoRef = useRef(null);
   const streamRef = useRef(null);
   const [isStreamActive, setIsStreamActive] = useState(false);
-  const IMAGE_STORAGE = 'savedImages-'
 
   const currentDodId = props.dodid
   // Load saved images from localStorage on component mount
@@ -28,13 +28,12 @@ const CameraCapture = (props) => {
 
   const startCamera = async () => {
     try {
-      setIsStreamActive(true);
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: 'environment' }
       });
       videoRef.current.srcObject = stream;
       streamRef.current = stream;
-   
+      setIsStreamActive(true);
     } catch (err) {
       console.error("Error accessing camera:", err);
     }
@@ -72,10 +71,9 @@ const CameraCapture = (props) => {
         dodid: props.dodid
       };
 
-     
       const updatedImages = [...savedImages, newImage];
       setSavedImages(updatedImages);
-      localStorage.setItem(IMAGE_STORAGE + props.dodid, JSON.stringify(updatedImages));
+      localStorage.setItem(IMAGE_STORE+ props.dodid, JSON.stringify(updatedImages));
 
       setCapturedImage(null);
       startCamera();
@@ -92,7 +90,7 @@ const CameraCapture = (props) => {
   const deleteFromStorage = (id) => {
     const updatedImages = savedImages.filter(img => img.id !== id);
     setSavedImages(updatedImages);
-    localStorage.setItem(IMAGE_STORAGE + props.dodid, JSON.stringify(updatedImages));
+    localStorage.setItem(IMAGE_STORE + props.dodid, JSON.stringify(updatedImages));
   };
 
   const retakePhoto = () => {
@@ -100,7 +98,18 @@ const CameraCapture = (props) => {
     startCamera();
   };
 
+
+  /*const ImageResize = () => {
+    const [isLarge, setIsLarge] = useState(false);
+  
+    const toggleSize = () => {
+      setIsLarge(!isLarge);
+    };
+  }*/
+  
   if (showGallery) {
+
+    
     return (
       <div>
       {/* Thumbnail Grid */}
@@ -117,12 +126,11 @@ const CameraCapture = (props) => {
     
           {savedImages.map((img) => (
             <div key={img.id} className="relative">
-                <ImageResize 
-              src={img.imgData} 
-              alt="Nature landscape"
-              maxHeight={600}
-              thumbnailHeight={180}
-            />
+              <img
+                src={img.imgData}
+                style={{ height: '150px' }}
+                alt={`Captured on ${new Date(img.timestamp).toLocaleString()}`}
+              />
               <div>
                 <button
                   onClick={() => downloadPhoto(img.data, img.timestamp)}

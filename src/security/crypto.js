@@ -8,7 +8,6 @@ console.log(secretKey)
 export function encryptData(data) {
 
   // Encrypt data
-  console.log("foo")
   if ( secretKey ) {
   console.log(secretKey)
   const encryptedData = CryptoJS.AES.encrypt(JSON.stringify(data), secretKey).toString();
