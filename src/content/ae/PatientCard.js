@@ -2,11 +2,11 @@
 import React, {useState,useEffect} from 'react'
 
 // MUI
-import { Avatar, Box, Button, ButtonGroup, Card, CardActionArea, CardActions, CardHeader, Grid } from '@mui/material'
+import {  Box, Button, ButtonGroup, Card, CardActionArea, CardActions, CardHeader, Grid } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 
 // MUI Icons
-import FolderIcon from '@mui/icons-material/Folder'
+//import FolderIcon from '@mui/icons-material/Folder'
 
 
 import useStorage from '../../api/useStorage'
@@ -28,11 +28,6 @@ function PatienIcon(props) {
         theme.palette.success.dark,
         undefined
     ]
-
-    function handleClick(event) {
-        event.stopPropagation()
-        setStatusLevel((statusLevel + 1) % statusColors.length)
-    }
 
     return (
         <img height='50px' src={props.img} alt="person"/>
