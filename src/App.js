@@ -14,6 +14,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 import Nav from './nav/Nav'
 import Content from './content/Content'
 import { StorageContextProvider } from './context/StorageContext'
+import TopMenuBar from './components/core/TopMenuBar'
 
 function Router(props) {
   const deployment = process.env.REACT_APP_DEPLOYMENT
@@ -54,6 +55,7 @@ function App() {
         <StorageContextProvider>
           <ThemeProvider theme={currentTheme}>
             <CssBaseline />
+            <TopMenuBar/>
             <Nav onModeChange={handleThemeMode} />
             <Content />
           </ThemeProvider>

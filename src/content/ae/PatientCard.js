@@ -1,5 +1,5 @@
 // React
-import React from 'react'
+import React, {useState,useEffect} from 'react'
 
 // MUI
 import { Avatar, Box, Button, ButtonGroup, Card, CardActionArea, CardActions, CardHeader, Grid } from '@mui/material'
@@ -16,6 +16,7 @@ import VitalsForm from '../../forms/ae/VitalsForm'
 import BlankTCCC from '../../forms/blankTccc/BlankTCCC'
 import AddMedForm from '../../forms/tccc/AddMedForm'
 import NotesForm from '../../forms/ae/NotesForm'
+import CameraCapture from '../../components/CameraCapture'
 
 function PatienIcon(props) {
     const theme = useTheme()
@@ -34,14 +35,15 @@ function PatienIcon(props) {
     }
 
     return (
-        <Avatar
+        <img height='50px' src={props.img} alt="person"/>
+        /*<Avatar
             onClick={handleClick}
             sx={{
                 bgcolor: statusColors[statusLevel % statusColors.length]
             }}
         >
             <FolderIcon />
-        </Avatar>
+        </Avatar> */
     )
 }
 
@@ -52,12 +54,26 @@ function PatientCard(props) {
         dodid
     } = props
 
+    const [savedImages, setSavedImages] = useState([]);
+    const [patientImg, setPatientImg] = useState('/nopicture.png');
+
     const [patients, setPatients] = useStorage('patients', {})
     const patient = patients[dodid]
 
     const [docs] = useStorage(`${dodid}-documents`, [])
     const navigate = useNavigate()
     
+    useEffect(() => {
+        const stored = localStorage.getItem('savedImages-' + dodid);
+      
+        if (stored) {
+          setSavedImages(JSON.parse(stored));
+        }
+        if (stored ) {
+            setPatientImg(JSON.parse(stored)[0].imgData)
+        }
+    }, [dodid]);
+
     let tccc = null
     for (let index in docs) {
         let doc = docs[index]
@@ -113,12 +129,14 @@ function PatientCard(props) {
                     aria-label={`Open ${dodid}`}
                     onClick={() => navigate(`/patients/ae/${dodid}`)}
                 >
+                   
                     <CardHeader
                         title={`${firstName} ${lastName}`}
                         titleTypographyProps={{ variant: "h6" }}
                         subheader={dodid}
-                        avatar={<PatienIcon statusLevel={patient.statusLevel} setStatusLevel={setStatusLevel} />}
+                        avatar={<PatienIcon img={patientImg} statusLevel={patient.statusLevel} setStatusLevel={setStatusLevel} />}
                     />
+        
                 </CardActionArea>
                 <CardActions>
                     <Box sx={{ flexGrow: 1 }} />
@@ -179,6 +197,7 @@ function PatientCard(props) {
                 close={close}
                 addNote={addNotesEntry}
             />
+            <CameraCapture/>
         </Grid>
     )
 }
