@@ -6,7 +6,6 @@ import {  Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, Text
 
 import useStorage from '../api/useStorage'
 import useEncryptedStorage from '../api/useEncryptedStorage'
-import SimpleCamera from '../components/core/SimpleCamera'
 import CameraCapture from '../components/CameraCapture'
 
 
