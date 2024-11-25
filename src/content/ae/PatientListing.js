@@ -12,6 +12,8 @@ import AddAPhoto from '@mui/icons-material/AddAPhoto'
 // custom 
 import useStorage from '../../api/useStorage'
 import NewPatientForm from '../../forms/NewPatientForm'
+import NewPatientFormCamera from '../../forms/NewPatientFormCamera'
+
 import PatientCard from './PatientCard'
 
 function sortPatients(patients) {
@@ -28,6 +30,7 @@ function sortPatients(patients) {
 function PatientListing(props) {
 
     const [open, setOpen] = React.useState(false)
+    const [openCamera, setOpenCamera] = React.useState(false)
     const [patients, setPatients] = useStorage("patients", {})
 
     function deletePatients() {
@@ -37,6 +40,11 @@ function PatientListing(props) {
     function close() {
         setOpen(false)
     }
+
+    function closeCamera() {
+        setOpenCamera(false)
+    }
+
 
     const sortedPatients = sortPatients(patients)
 
@@ -57,7 +65,7 @@ function PatientListing(props) {
                 >
                     <IconButton
                         aria-label="Add Patient Image"
-                        onClick={() => setOpen(true)}
+                        onClick={() => setOpenCamera(true)}
                     >
                         <AddAPhoto fontSize="large" />
                     </IconButton>
@@ -80,6 +88,7 @@ function PatientListing(props) {
                 open={open}
                 close={close}
             />
+            <NewPatientFormCamera  open={openCamera} close={closeCamera} />
             <Grid item xs={12}>
             
             </Grid>

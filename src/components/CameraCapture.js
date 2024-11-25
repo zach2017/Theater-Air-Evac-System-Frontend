@@ -120,7 +120,7 @@ const CameraCapture = (props) => {
             onClick={() => setShowGallery(false)}
   
           >
-            Back to Camera
+            Open Camera
           </button>
         </div>
     

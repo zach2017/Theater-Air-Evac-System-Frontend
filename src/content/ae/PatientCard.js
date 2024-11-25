@@ -1,8 +1,8 @@
 // React
-import React, {useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 
 // MUI
-import {  Box, Button, ButtonGroup, Card, CardActionArea, CardActions, CardHeader, Grid } from '@mui/material'
+import { Box, Button, ButtonGroup, Card, CardActionArea, CardActions, CardHeader, Grid } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 
 // MUI Icons
@@ -20,8 +20,8 @@ import CameraCapture from '../../components/CameraCapture'
 
 function PatienIcon(props) {
     const theme = useTheme()
-    const statusLevel  = props.statusLevel !== undefined ? props.statusLevel : 3
-    const {setStatusLevel} = props
+    const statusLevel = props.statusLevel !== undefined ? props.statusLevel : 3
+    const { setStatusLevel } = props
     const statusColors = [
         theme.palette.error.dark,
         theme.palette.warning.dark,
@@ -30,7 +30,7 @@ function PatienIcon(props) {
     ]
 
     return (
-        <img height='50px' src={props.img} alt="person"/>
+        <img height='50px' src={props.img} alt="person" />
         /*<Avatar
             onClick={handleClick}
             sx={{
@@ -57,15 +57,19 @@ function PatientCard(props) {
 
     const [docs] = useStorage(`${dodid}-documents`, [])
     const navigate = useNavigate()
-    
+
     useEffect(() => {
-        const stored = localStorage.getItem('savedImages-' + dodid);
-      
-        if (stored) {
-          setSavedImages(JSON.parse(stored));
-        }
-        if (stored ) {
-            setPatientImg(JSON.parse(stored)[0].imgData)
+        if (dodid) {
+            const imgname = 'Saved_Images_' + dodid
+            const stored = localStorage.getItem(imgname);
+          
+            if (stored ) {
+                const imgjson = JSON.parse(stored)
+                if (imgjson[0].imgData) {
+                      console.log(imgjson)
+                     setPatientImg(imgjson[0].imgData)
+                }
+            }
         }
     }, [dodid]);
 
@@ -116,7 +120,7 @@ function PatientCard(props) {
     function setStatusLevel(newValue) {
         updatePatient("statusLevel", newValue)
     }
-    
+
     return (
         <Grid item xs={12}>
             <Card>
@@ -124,14 +128,14 @@ function PatientCard(props) {
                     aria-label={`Open ${dodid}`}
                     onClick={() => navigate(`/patients/ae/${dodid}`)}
                 >
-                   
+
                     <CardHeader
                         title={`${firstName} ${lastName}`}
                         titleTypographyProps={{ variant: "h6" }}
                         subheader={dodid}
                         avatar={<PatienIcon img={patientImg} statusLevel={patient.statusLevel} setStatusLevel={setStatusLevel} />}
                     />
-        
+
                 </CardActionArea>
                 <CardActions>
                     <Box sx={{ flexGrow: 1 }} />
@@ -192,7 +196,7 @@ function PatientCard(props) {
                 close={close}
                 addNote={addNotesEntry}
             />
-            <CameraCapture/>
+           
         </Grid>
     )
 }

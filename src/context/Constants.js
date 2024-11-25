@@ -1,0 +1,1 @@
+export const IMAGE_STORE = 'Saved_Images_'
