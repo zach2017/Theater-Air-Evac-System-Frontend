@@ -1,0 +1,36 @@
+# Use a base image with Node.js
+FROM node:22 AS build
+
+# Set the working directory
+WORKDIR /app
+
+# Copy both frontend and backend into the container
+COPY backend ./backend
+COPY frontend ./frontend
+
+# Install backend dependencies
+WORKDIR /app/backend
+RUN npm install
+
+# Install frontend dependencies and build the React app
+WORKDIR /app/frontend
+RUN npm install
+RUN npm run build
+
+# Final Stage: Serve the app with Node.js for backend and React static files
+FROM node:22
+
+WORKDIR /app
+
+# Copy backend code and dependencies
+COPY --from=build /app/backend /app/backend
+
+# Copy built React app to the backend's public directory
+COPY --from=build /app/frontend/build /app/backend/public
+
+# Install backend dependencies
+WORKDIR /app/backend
+RUN npm install --production
+
+# Set the backend as the entry point
+CMD ["node", "index.js"]

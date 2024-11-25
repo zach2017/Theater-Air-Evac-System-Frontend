@@ -1,5 +1,5 @@
 // React
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 // router
 import { BrowserRouter, HashRouter } from "react-router-dom"
@@ -23,7 +23,9 @@ import { useTheme } from '@mui/material/styles';  
 import Nav from './nav/Nav'
 import Content from './content/Content'
 import { StorageContextProvider } from './context/StorageContext'
+import { ChromeIdentity } from './security/identity';
 
+// Get device ID on registration
 
 function Router(props) {
   const deployment = process.env.REACT_APP_DEPLOYMENT
@@ -43,8 +45,8 @@ function Router(props) {
 }
 
 
-
 function App() {
+  const [loading, setLoading] = useState(true);
 
   const [themeMode, setThemeMode] = useState("dark");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -54,8 +56,50 @@ function App() {
 
   const theme = useTheme();
 
+  useEffect(() => {
+    verifyDeviceAuth();
+  }, []);
+
+  async function verifyDeviceAuth() {
+    try {
+      const storedId = localStorage.getItem('deviceId');
+      const isValid = await ChromeIdentity.verifyIdentity(storedId);
+      if (isValid) {
+        const encryptedData = JSON.parse(localStorage.getItem('userData'));
+        const key = await ChromeIdentity.generateKey('userPassword', storedId);
+        const decrypted = await ChromeIdentity.decrypt(encryptedData, key);
+       // setUserData(decrypted);
+        setIsAuthenticated(true);
+      }
+  } catch (error) {
+    console.error('Auth failed:', error);
+  } finally {
+    setLoading(false);
+  }
+}
+async function handleLogin2(password) {
+  const deviceId = await ChromeIdentity.getDeviceIdentity();
+  const key = await ChromeIdentity.generateKey(password, deviceId);
+  
+  const userData = {
+    id: 'user123',
+    name: 'John Doe',
+    settings: { theme: 'dark' }
+  };
+
+  console.log(deviceId)
+
+  const encrypted = await ChromeIdentity.encrypt(userData, key);
+  localStorage.setItem('deviceId', deviceId);
+  localStorage.setItem('userData', JSON.stringify(encrypted));
+  
+  //setUserData(userData);
+  setIsAuthenticated(true);
+}
+
   const handleLogin = () => {
     if (username === "admin" && password === "password") {
+      handleLogin2(password)
       setIsAuthenticated(true);
     } else {
       alert("Invalid credentials!");
