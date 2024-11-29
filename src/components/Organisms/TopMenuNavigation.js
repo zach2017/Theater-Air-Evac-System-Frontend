@@ -1,23 +1,24 @@
-// React
+
 import React from 'react'
 
-// MUI
 import { AppBar, Box, IconButton, Toolbar, Tooltip, Typography } from '@mui/material'
 
-// MUI Icons
+
 import MenuIcon from '@mui/icons-material/Menu'
 import SettingsIcon from '@mui/icons-material/Settings'
 import SyncIcon from '@mui/icons-material/Sync';
-import SideDrawer from './SideDrawer'
-//import PrintIcon from '@mui/icons-material/Print';
+import SideDrawer from '../Molecules/SideMenuDrawer';
 
-// router
 import { Link, useLocation } from 'react-router-dom'
-import SettingsDialog from '../components/SettingsDialog'
-import SyncDialog from '../components/SyncDialog';
-import SwitchButton from '../components/SwtichButton';
+import SettingsDialog from '../Molecules/SettingsDialog';
+import SyncDialog from '../Molecules/SyncDialog';
+import SwitchButton from '../Atoms/SwtichButton';
+import { useAuth } from '../../context/AuthContext';
 
-function Nav({onModeChange, logout}) {
+
+function TopMenuNavigation({onModeChange}) {
+
+    const { auth, logout } = useAuth();
 
     const [open, setOpen] = React.useState(false)
     const [settingsOpen, setSettingsOpen] = React.useState(false)
@@ -40,7 +41,7 @@ function Nav({onModeChange, logout}) {
                     </IconButton>
                     <Link to="/" style={{color: "inherit", textDecoration: "none" }}>
                         <Typography variant="h6">
-                            TAES
+                            TAES  - ({auth.username})
                         </Typography>
                     </Link>
                     <Box sx={{flexGrow: 1}} />
@@ -96,4 +97,4 @@ function Nav({onModeChange, logout}) {
     )
 }
 
-export default Nav
+export default TopMenuNavigation

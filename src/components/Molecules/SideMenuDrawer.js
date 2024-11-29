@@ -1,10 +1,8 @@
-// React
+
 import React from 'react'
 
-// MUI
 import { Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 
-// MUI icons
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt'
 import TableChartIcon from '@mui/icons-material/TableChart';
 import { Link } from 'react-router-dom'

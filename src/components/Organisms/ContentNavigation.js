@@ -1,17 +1,15 @@
-// React
 import React, { Suspense } from 'react'
 
-// MUI
 import { Grid, LinearProgress } from '@mui/material'
 import { Route, Routes } from 'react-router-dom'
-import Patients from './Patients'
-import PatientPage from './PatientPage'
-import TucsPage from './TucsPage'
-import PatientListing from './ae/PatientListing'
-import AEPatientPage from './ae/PatientPage'
-import TriagePage from './Triage'
+import Patients from '../../content/Patients'
+import PatientPage from '../../content/PatientPage'
+import TucsPage from '../../content/TucsPage'
+import PatientListing from '../../content/ae/PatientListing'
+import AEPatientPage from '../../content/ae/PatientPage'
+import TriagePage from '../../content/Triage'
 
-function Content(props) {
+function ContentNavigation(props) {
     
     return (
         <Grid
@@ -56,4 +54,4 @@ function Content(props) {
     )
 }
 
-export default Content
+export default ContentNavigation
